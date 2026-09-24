@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b63f6">
+<title>QR-Life — Жетістіктер жүйесі</title>
+<style>
+:root{--blue:#0b63f6;--blue2:#0647b8;--orange:#ff8a1f;--bg:#f5f8fc;--card:#fff;--text:#172033;--muted:#6b7280;--line:#e5eaf1;--green:#16a34a;--red:#dc2626;--yellow:#d97706}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}.app{max-width:1120px;margin:auto;min-height:100vh}.top{background:linear-gradient(135deg,#0758dc,#0b63f6 62%,#ff8a1f);color:#fff;padding:20px 18px 24px;border-radius:0 0 28px 28px;box-shadow:0 10px 30px #0b63f622}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:#fff;color:var(--blue);display:grid;place-items:center;font-weight:900;font-size:20px;box-shadow:0 8px 22px #002b7b33}.brand h1{font-size:24px;margin:0}.brand p{margin:3px 0 0;opacity:.86;font-size:13px}
+.wrap{padding:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 8px 24px #20385b0c;margin-bottom:14px}
+.hero h2{margin:0 0 7px;font-size:25px}.hero p{color:var(--muted);margin:0 0 16px;line-height:1.5}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:800;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#eef5ff;color:var(--blue)}.orange{background:var(--orange);color:#fff}.ghost{background:#f3f5f8;color:#374151}.danger{background:#fff0f0;color:var(--red)}
+.hidden{display:none!important}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.cat{padding:17px;border-radius:18px;background:#fff;border:1px solid var(--line);cursor:pointer;min-height:130px}.cat .ico{font-size:29px}.cat b{display:block;margin-top:12px}.cat small{color:var(--muted);display:block;margin-top:5px;line-height:1.35}
+.title{font-size:20px;margin:4px 0 14px}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #d7deea;border-radius:13px;padding:13px;background:#fff;outline:none}.field textarea{min-height:95px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0b63f612}
+.notice{padding:12px 14px;border-radius:13px;background:#eef5ff;color:#174ea6;font-size:13px;line-height:1.45}.error{background:#fff0f0;color:#b91c1c}.success{background:#edfff2;color:#15803d}
+.profile{display:flex;justify-content:space-between;gap:12px;align-items:center}.avatar{width:48px;height:48px;border-radius:50%;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;font-weight:900}.who{display:flex;align-items:center;gap:11px}.who b{display:block}.who small{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:14px}.stat strong{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row p{margin:4px 0;color:var(--muted);font-size:13px}.pill{font-size:11px;font-weight:900;padding:6px 9px;border-radius:999px;white-space:nowrap}.pending{background:#fff7e6;color:#b45309}.approved{background:#eafaf0;color:#15803d}.rejected{background:#fff0f0;color:#b91c1c}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:999px;font-weight:700}.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.teacherTop{display:flex;justify-content:space-between;align-items:center;gap:10px}.filters{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:9px}.mini{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px}
+.reviewBtns{display:flex;gap:7px;margin-top:8px}.reviewBtns button{padding:8px 10px;border:0;border-radius:10px;font-weight:800}.ok{background:#e9f9ef;color:#15803d}.no{background:#fff0f0;color:#b91c1c}
+.footer{text-align:center;color:#8b95a7;font-size:12px;padding:22px}.loading{position:fixed;inset:0;background:#ffffffdd;z-index:99;display:grid;place-items:center;font-weight:800;color:var(--blue)}
+@media(max-width:760px){.grid4{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.hero h2{font-size:22px}.wrap{padding:14px}.cat{min-height:120px}.teacherTop{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div id="loading" class="loading">QR-Life жүктелуде…</div>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">QR</div><div><h1>QR-Life</h1><p>Жетістігіңді тірке. Дамуыңды бақыла.</p></div></div></header>
+<main class="wrap">
+<section id="landing">
+ <div class="card hero"><h2>Қош келдің! 👋</h2><p>QR-Life — оқушының сабақтан тыс жетістіктерін бір жерде жинақтайтын цифрлық күнделік.</p>
+ <div class="actions"><button class="btn primary" onclick="startStudent()">Мен оқушымын</button><button class="btn secondary" onclick="showTeacherLogin()">Мұғалім панелі</button></div></div>
+ <div class="grid4">
+  <div class="cat"><div class="ico">📖</div><b>Кітап оқу</b><small>Оқыған кітаптарыңды тірке</small></div>
+  <div class="cat"><div class="ico">🏆</div><b>Оқудағы жетістік</b><small>Олимпиада, байқау, оқу нәтижесі</small></div>
+  <div class="cat"><div class="ico">🔬</div><b>Ғылыми жоба</b><small>Жоба, зерттеу және тәжірибе</small></div>
+  <div class="cat"><div class="ico">🎨</div><b>Шығармашылық</b><small>Өнер, спорт және белсенділік</small></div>
+ </div>
+</section>
+
+<section id="register" class="hidden">
+ <div class="card"><h2 class="title">Оқушы профилін ашу</h2><div class="notice">Бұл телефонда бірінші рет кіріп тұрсың. Аты-жөніңді бір рет енгізсең, келесі кіргенде профилің автоматты ашылады.</div>
+ <div class="field"><label>Аты-жөнің</label><input id="regName" placeholder="Мысалы: Айдана Серікқызы"></div>
+ <div class="field"><label>Сынып</label><input id="regClass" placeholder="Мысалы: 8 А"></div>
+ <button class="btn primary" style="width:100%" onclick="registerStudent()">Профиль құру</button></div>
+</section>
+
+<section id="student" class="hidden">
+ <div class="card profile"><div class="who"><div id="avatar" class="avatar">О</div><div><b id="studentName">Оқушы</b><small id="studentClass"></small></div></div><button class="btn ghost" onclick="studentLogout()">Шығу</button></div>
+ <div class="card"><div class="teacherTop"><h2 class="title" style="margin:0">Менің нәтижем</h2><button class="btn orange" onclick="openAchievement()">+ Жетістік қосу</button></div><div id="studentStats" class="stats" style="margin-top:14px"></div></div>
+ <div class="card"><h2 class="title">Менің жетістіктерім</h2><div id="studentHistory"></div></div>
+</section>
+
+<section id="achievement" class="hidden">
+ <div class="card"><button class="btn ghost" onclick="show('student')">← Артқа</button><h2 class="title" style="margin-top:16px">Жетістік қосу</h2>
+ <div class="field"><label>Бөлім</label><select id="achCategory"><option value="book">📖 Кітап оқу</option><option value="study">🏆 Оқудағы жетістік</option><option value="science">🔬 Ғылыми жоба / тәжірибе</option><option value="creative">🎨 Шығармашылық / белсенділік</option></select></div>
+ <div class="field"><label>Жетістіктің атауы</label><input id="achTitle" placeholder="Мысалы: «Абай жолы» кітабын оқыдым"></div>
+ <div class="field"><label>Қысқаша сипаттама</label><textarea id="achDesc" placeholder="Не істедің? Қандай нәтиже алдың?"></textarea></div>
+ <div id="achMsg"></div><button class="btn primary" style="width:100%" onclick="submitAchievement()">Мұғалімге жіберу</button></div>
+</section>
+
+<section id="teacherLogin" class="hidden">
+ <div class="card"><button class="btn ghost" onclick="show('landing')">← Артқа</button><h2 class="title" style="margin-top:16px">Мұғалім панелі</h2><p style="color:var(--muted)">Firebase Authentication жүйесіндегі мұғалім аккаунтымен кіріңіз.</p>
+ <div class="field"><label>Email</label><input id="teacherEmail" type="email" placeholder="email@gmail.com"></div>
+ <div class="field"><label>Құпиясөз</label><input id="teacherPassword" type="password" placeholder="••••••••"></div><div id="loginMsg"></div>
+ <button class="btn primary" style="width:100%" onclick="teacherLogin()">Кіру</button></div>
+</section>
+
+<section id="teacher" class="hidden">
+ <div class="card teacherTop"><div><b id="teacherName">Мұғалім</b><div style="color:var(--muted);font-size:13px">QR-Life басқару панелі</div></div><button class="btn ghost" onclick="teacherLogout()">Шығу</button></div>
+ <div class="card"><div class="filters"><select id="periodFilter" class="mini" onchange="renderTeacher()"><option value="today">Бүгін</option><option value="week">Осы апта</option><option value="month">Осы ай</option><option value="quarter">Осы тоқсан</option><option value="year">Осы оқу жылы</option><option value="all" selected>Барлық уақыт</option></select><select id="catFilter" class="mini" onchange="renderTeacher()"><option value="all">Барлық бөлім</option><option value="book">Кітап оқу</option><option value="study">Оқудағы жетістік</option><option value="science">Ғылыми жоба</option><option value="creative">Шығармашылық</option></select><select id="statusFilter" class="mini" onchange="renderTeacher()"><option value="all">Барлық күй</option><option value="pending">Тексерілуде</option><option value="approved">Расталды</option><option value="rejected">Қабылданбады</option></select></div></div>
+ <div class="card"><h2 class="title">Жалпы көрсеткіш</h2><div id="teacherStats" class="stats"></div></div>
+ <div class="card"><h2 class="title">Оқушылар</h2><div id="studentsList"></div></div>
+ <div class="card"><h2 class="title">Жетістіктер</h2><div id="teacherAchievements"></div></div>
+</section>
+<div class="footer">QR-Life • Мектеп жетістіктерінің цифрлық жүйесі</div>
+</main></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,addDoc,collection,query,where,onSnapshot,serverTimestamp,updateDoc,getDocs} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyDIuemVCkK6-Vc63W1z7GvZnEQDa9nQ7Pk",authDomain:"qr-life-92b75.firebaseapp.com",projectId:"qr-life-92b75",storageBucket:"qr-life-92b75.firebasestorage.app",messagingSenderId:"600852034389",appId:"1:600852034389:web:471ab2c5cc5c7b005df5dc",measurementId:"G-90SERKHGMR"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+let profile=null, achievements=[], allStudents=[], teacherMode=false, unsubA=null,unsubS=null;
+const cats={book:"📖 Кітап оқу",study:"🏆 Оқудағы жетістік",science:"🔬 Ғылыми жоба",creative:"🎨 Шығармашылық"};
+const statusText={pending:"Тексерілуде",approved:"Расталды",rejected:"Қабылданбады"};
+
+window.show=(id)=>{["landing","register","student","achievement","teacherLogin","teacher"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden");scrollTo(0,0)};
+window.showTeacherLogin=()=>show("teacherLogin");
+window.startStudent=async()=>{try{if(auth.currentUser&&!auth.currentUser.isAnonymous){await signOut(auth)}if(!auth.currentUser)await signInAnonymously(auth);await loadStudent()}catch(e){alert("Кіру қатесі: "+e.message)}};
+async function loadStudent(){const u=auth.currentUser;if(!u)return;const snap=await getDoc(doc(db,"students",u.uid));if(snap.exists()){profile={id:u.uid,...snap.data()};openStudent()}else show("register")}
+window.registerStudent=async()=>{const fullName=document.getElementById("regName").value.trim(),className=document.getElementById("regClass").value.trim();if(fullName.length<3||!className)return alert("Аты-жөнің мен сыныбыңды толық енгіз.");try{const u=auth.currentUser||await signInAnonymously(auth).then(r=>r.user);const data={uid:u.uid,fullName,className,role:"student",createdAt:serverTimestamp()};await setDoc(doc(db,"students",u.uid),data);profile={id:u.uid,...data};openStudent()}catch(e){alert("Сақтау қатесі: "+e.message)}};
+function openStudent(){teacherMode=false;document.getElementById("studentName").textContent=profile.fullName;document.getElementById("studentClass").textContent=profile.className+" сыныбы";document.getElementById("avatar").textContent=(profile.fullName||"О")[0].toUpperCase();show("student");listenStudent()}
+function listenStudent(){if(unsubA)unsubA();const q=query(collection(db,"achievements"),where("studentId","==",profile.id));unsubA=onSnapshot(q,s=>{achievements=s.docs.map(d=>({id:d.id,...d.data()}));achievements.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));renderStudent()})}
+function renderStudent(){const approved=achievements.filter(a=>a.status==="approved");const counts=k=>approved.filter(a=>a.category===k).length;document.getElementById("studentStats").innerHTML=[["📖",counts("book"),"Кітап"],["🏆",counts("study"),"Оқу"],["🔬",counts("science"),"Ғылым"],["🎨",counts("creative"),"Белсенділік"]].map(x=>`<div class="stat"><span>${x[0]} ${x[2]}</span><strong>${x[1]}</strong></div>`).join("");document.getElementById("studentHistory").innerHTML=achievements.length?achievements.map(a=>rowHTML(a,false)).join(""):`<div class="notice">Әзірге жетістік жоқ. Алғашқысын қосып көр!</div>`}
+window.openAchievement=()=>{document.getElementById("achTitle").value="";document.getElementById("achDesc").value="";document.getElementById("achMsg").innerHTML="";show("achievement")};
+window.submitAchievement=async()=>{const category=document.getElementById("achCategory").value,title=document.getElementById("achTitle").value.trim(),description=document.getElementById("achDesc").value.trim();if(title.length<3)return msg("achMsg","Жетістіктің атауын жазыңыз.","error");try{await addDoc(collection(db,"achievements"),{studentId:profile.id,studentName:profile.fullName,className:profile.className,category,title,description,status:"pending",createdAt:serverTimestamp(),reviewedAt:null,reviewedBy:null});msg("achMsg","Жетістік мұғалімге жіберілді!","success");setTimeout(()=>show("student"),700)}catch(e){msg("achMsg","Жіберу қатесі: "+e.message,"error")}};
+window.studentLogout=async()=>{if(unsubA)unsubA();await signOut(auth);profile=null;show("landing")};
+
+window.teacherLogin=async()=>{const email=document.getElementById("teacherEmail").value.trim(),password=document.getElementById("teacherPassword").value;try{const c=await signInWithEmailAndPassword(auth,email,password);const t=await getDoc(doc(db,"teachers",c.user.uid));if(!t.exists()||String(t.data().role).toLowerCase()!=="teacher"){await signOut(auth);return msg("loginMsg","Бұл аккаунт мұғалім ретінде тіркелмеген.","error")}teacherMode=true;document.getElementById("teacherName").textContent=t.data().name||"Ұстаз";show("teacher");listenTeacher()}catch(e){msg("loginMsg","Email немесе құпиясөз қате.","error")}};
+function listenTeacher(){if(unsubA)unsubA();if(unsubS)unsubS();unsubA=onSnapshot(collection(db,"achievements"),s=>{achievements=s.docs.map(d=>({id:d.id,...d.data()}));renderTeacher()});unsubS=onSnapshot(collection(db,"students"),s=>{allStudents=s.docs.map(d=>({id:d.id,...d.data()}));renderTeacher()})}
+window.teacherLogout=async()=>{if(unsubA)unsubA();if(unsubS)unsubS();teacherMode=false;await signOut(auth);show("landing")};
+window.review=async(id,status)=>{try{await updateDoc(doc(db,"achievements",id),{status,reviewedAt:serverTimestamp(),reviewedBy:auth.currentUser.uid})}catch(e){alert("Қате: "+e.message)}};
+window.renderTeacher=()=>{if(!teacherMode)return;const p=document.getElementById("periodFilter").value,c=document.getElementById("catFilter").value,s=document.getElementById("statusFilter").value;let list=achievements.filter(a=>inPeriod(a,p)&&(c==="all"||a.category===c)&&(s==="all"||a.status===s));list.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));const approved=list.filter(a=>a.status==="approved").length,pending=list.filter(a=>a.status==="pending").length;document.getElementById("teacherStats").innerHTML=`<div class="stat"><span>Оқушы</span><strong>${allStudents.length}</strong></div><div class="stat"><span>Жетістік</span><strong>${list.length}</strong></div><div class="stat"><span>Расталды</span><strong>${approved}</strong></div><div class="stat"><span>Күтуде</span><strong>${pending}</strong></div>`;document.getElementById("studentsList").innerHTML=allStudents.length?allStudents.sort((a,b)=>(a.fullName||"").localeCompare(b.fullName||"")).map(st=>{const aa=achievements.filter(x=>x.studentId===st.id&&x.status==="approved");return `<div class="row"><div><b>${esc(st.fullName)}</b><p>${esc(st.className||"")} • 📖 ${aa.filter(x=>x.category==="book").length} · 🏆 ${aa.filter(x=>x.category==="study").length} · 🔬 ${aa.filter(x=>x.category==="science").length} · 🎨 ${aa.filter(x=>x.category==="creative").length}</p></div><span class="pill approved">${aa.length} нәтиже</span></div>`}).join(""):`<div class="notice">Оқушылар әлі тіркелмеген.</div>`;document.getElementById("teacherAchievements").innerHTML=list.length?list.map(a=>rowHTML(a,true)).join(""):`<div class="notice">Бұл сүзгі бойынша мәлімет жоқ.</div>`};
+function rowHTML(a,teacher){return `<div class="row"><div><b>${cats[a.category]||a.category} — ${esc(a.title)}</b><p>${teacher?esc(a.studentName||"")+" • "+esc(a.className||"")+" • ":""}${esc(a.description||"")}</p><p>${dateText(a.createdAt)}</p>${teacher&&a.status==="pending"?`<div class="reviewBtns"><button class="ok" onclick="review('${a.id}','approved')">✓ Растау</button><button class="no" onclick="review('${a.id}','rejected')">✕ Қабылдамау</button></div>`:""}</div><span class="pill ${a.status}">${statusText[a.status]||a.status}</span></div>`}
+function inPeriod(a,p){if(p==="all")return true;if(!a.createdAt?.toDate)return false;const d=a.createdAt.toDate(),n=new Date(),start=new Date(n);if(p==="today")start.setHours(0,0,0,0);if(p==="week"){start.setHours(0,0,0,0);start.setDate(start.getDate()-((start.getDay()+6)%7))}if(p==="month")start=new Date(n.getFullYear(),n.getMonth(),1);if(p==="quarter"){const m=n.getMonth(),q=m>=8&&m<=9?8:m>=10?10:m<=2?0:m<=4?3:5;start=new Date(n.getFullYear(),q,1)}if(p==="year"){start=n.getMonth()>=8?new Date(n.getFullYear(),8,1):new Date(n.getFullYear()-1,8,1)}return d>=start&&d<=n}
+function dateText(t){try{return t?.toDate().toLocaleString("kk-KZ",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})||"Жаңа"}catch{return "Жаңа"}}
+function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function msg(id,text,type){document.getElementById(id).innerHTML=`<div class="notice ${type}">${text}</div>`}
+
+onAuthStateChanged(auth,async u=>{document.getElementById("loading").classList.add("hidden");if(!u){show("landing");return}if(u.isAnonymous){const s=await getDoc(doc(db,"students",u.uid));if(s.exists()){profile={id:u.uid,...s.data()};openStudent()}else show("landing")}else{const t=await getDoc(doc(db,"teachers",u.uid));if(t.exists()&&String(t.data().role).toLowerCase()==="teacher"){teacherMode=true;document.getElementById("teacherName").textContent=t.data().name||"Ұстаз";show("teacher");listenTeacher()}else show("landing")}});
+</script>
+</body>
+</html>
